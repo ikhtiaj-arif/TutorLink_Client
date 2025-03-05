@@ -1,8 +1,10 @@
 // components/FeaturedTutors.tsx
 'use client';
 
+import { Button } from "@/components/ui/button";
 import TutorCard from "@/components/ui/core/TutorCard";
 import { ITutor } from "@/types";
+import Link from "next/link";
 
 
 
@@ -44,6 +46,42 @@ const FeaturedTutors = () => {
             firstLessonFree: true,
             availability: 'Weekdays',
         },
+        {
+            id: '4',
+            name: 'Josiah',
+            location: 'Palm Desert',
+            subject: 'Tennis',
+            price: '$100/h',
+            rating: 5,
+            reviews: 2,
+            imgUrl: 'https://via.placeholder.com/150',
+            firstLessonFree: true,
+            availability: 'Weekdays',
+        },
+        {
+            id: '5',
+            name: 'Josiah',
+            location: 'Palm Desert',
+            subject: 'Tennis',
+            price: '$100/h',
+            rating: 5,
+            reviews: 2,
+            imgUrl: 'https://via.placeholder.com/150',
+            firstLessonFree: true,
+            availability: 'Weekdays',
+        },
+        {
+            id: '6',
+            name: 'Josiah',
+            location: 'Palm Desert',
+            subject: 'Tennis',
+            price: '$100/h',
+            rating: 5,
+            reviews: 2,
+            imgUrl: 'https://via.placeholder.com/150',
+            firstLessonFree: true,
+            availability: 'Weekdays',
+        },
     ];
 
     return (
@@ -55,6 +93,12 @@ const FeaturedTutors = () => {
                         <TutorCard key={tutor.id} tutor={tutor} />
                     ))}
                 </div>
+            </div>
+            <div className="w-full h-20 flex justify-center items-center mt-10">
+
+            <Link href={'/tutors'}>
+            <Button>See more tutors</Button>
+            </Link>
             </div>
         </section>
     );

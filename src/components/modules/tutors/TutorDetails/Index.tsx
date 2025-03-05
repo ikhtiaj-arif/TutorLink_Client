@@ -3,34 +3,37 @@
 
 import { useState } from 'react';
 // Assuming TutorDetails type is defined
-import { Calendar } from 'lucide-react'; // Calendar icon for booking
 import { TutorDetails } from '@/types';
 import TutorFloatingCard from '../TutorFloatingCard/Iindex';
+import SlotPicker from './SlotPicker';
 
 
 const TutorDetailsPage = ({ tutor }: { tutor: TutorDetails }) => {
-    const [selectedDate, setSelectedDate] = useState<string | null>(null);
+    const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
+
+    const handleSlotSelect = (slot: string) => {
+        setSelectedSlot(slot);
+        console.log('Selected Slot:', slot);
+    };
 
     // Handle date selection for the calendar
-    const handleDateSelect = (date: string) => {
-        setSelectedDate(date);
-    };
+
     const handleContactClick = () => {
-      console.log("Contact button clicked");
+        console.log("Contact button clicked");
     };
 
     return (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-            <TutorFloatingCard name="Luisa"
-                imageUrl="https://via.placeholder.com/150"
-                rating={5}
-                reviews={45}
-                hourlyRate="$80/h"
-                responseTime="1h"
-                numberOfStudents="50+"
-                onContact={handleContactClick}
-            />
+                <TutorFloatingCard name="Luisa"
+                    imageUrl="https://via.placeholder.com/150"
+                    rating={5}
+                    reviews={45}
+                    hourlyRate="$80/h"
+                    responseTime="1h"
+                    numberOfStudents="50+"
+                    onContact={handleContactClick}
+                />
                 <div className="lg:col-span-1">
                     <div className="flex items-center mb-6">
                         <img src={tutor.imgUrl} alt={tutor.name} className="w-32 h-32 rounded-full object-cover" />
@@ -47,7 +50,7 @@ const TutorDetailsPage = ({ tutor }: { tutor: TutorDetails }) => {
                             )}
                         </div>
                     </div>
-                    
+
                     {/* Tutor Bio */}
                     <div className="mt-6">
                         <h3 className="text-2xl font-semibold">About {tutor.name}</h3>
@@ -93,25 +96,16 @@ const TutorDetailsPage = ({ tutor }: { tutor: TutorDetails }) => {
 
                     {/* Calendar Section */}
                     <div className="mb-8">
-                        <h3 className="text-2xl font-semibold mb-4">Booking Calendar</h3>
-                        <div className="bg-gray-100 p-4 rounded-lg">
-                            <div className="text-center">
-                                <Calendar className="text-pink-500 w-8 h-8 mx-auto" />
-                                <p className="mt-2 text-gray-600">Select your preferred date:</p>
-                                {/* Dummy calendar UI (in real-world scenario, use a calendar library or custom component) */}
-                                <div className="mt-4 grid grid-cols-7 gap-4 text-center">
-                                    {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day, index) => (
-                                        <button
-                                            key={index}
-                                            className={`p-2 rounded-lg ${selectedDate === day ? 'bg-pink-500 text-white' : 'bg-white text-gray-600'}`}
-                                            onClick={() => handleDateSelect(day)}
-                                        >
-                                            {day}
-                                        </button>
-                                    ))}
+                        <div className="container mx-auto p-4">
+                            <h1 className="text-3xl font-bold mb-6">Book a Tutor</h1>
+                            <SlotPicker onSlotSelect={handleSlotSelect} />
+
+                            {selectedSlot && (
+                                <div className="mt-6">
+                                    <p className="text-lg font-semibold">You have selected the slot:</p>
+                                    <p className="text-gray-600">{selectedSlot}</p>
                                 </div>
-                                {selectedDate && <p className="mt-4 text-gray-600">You selected: {selectedDate}</p>}
-                            </div>
+                            )}
                         </div>
                     </div>
 
