@@ -1,9 +1,9 @@
 // components/TutorCard.tsx
 'use client';
 
-import { useRouter } from 'next/navigation';
-import { Star } from 'lucide-react';
 import { ITutor } from '@/types';
+import { Star } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 
 interface TutorCardProps {
@@ -41,7 +41,7 @@ const TutorCard: React.FC<TutorCardProps> = ({ tutor }) => {
                     <span className="text-sm text-gray-500">{tutor.badge}</span>
                     <button
                         onClick={handleProfileRedirect}
-                        className="px-6 py-2 bg-pink-500 text-white text-sm rounded-lg"
+                        className="px-6 py-2 bg-primary text-white text-sm rounded-lg"
                     >
                         View Profile
                     </button>

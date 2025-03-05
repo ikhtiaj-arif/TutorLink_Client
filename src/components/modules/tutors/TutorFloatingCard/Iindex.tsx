@@ -42,7 +42,7 @@ const TutorFloatingCard: React.FC<TutorDetailCardProps> = ({
                     <div className="flex justify-between items-center mt-4 w-full">
                         <button
                             onClick={onContact}
-                            className="bg-pink-500 text-white py-2 px-6 rounded-full w-full text-center"
+                            className="bg-primary text-white py-2 px-6 rounded-full w-full text-center"
                         >
                             Contact
                         </button>

@@ -22,7 +22,7 @@ const Navbar = () => {
     const isActive = (path: string) => pathname === path ? "text-dark" : "text-gray-600 hover:text-dark";
 
     return (
-        <div className="padding-x w-full py-5 fixed top-0 z-20 bg-secondary border border-b">
+        <div className="padding-x w-full py-5 fixed top-0 z-20 bg-accent ">
             <div className="w-[93%] flex justify-between items-center max-w-7xl mx-auto">
                 <div className="w-full lg:w-auto justify-between flex items-center">
                     <Link

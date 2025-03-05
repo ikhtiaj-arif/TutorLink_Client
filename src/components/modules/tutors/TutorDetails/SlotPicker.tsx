@@ -48,7 +48,7 @@ const SlotPicker: React.FC<SlotPickerProps> = ({ onSlotSelect }) => {
                         {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day, index) => (
                             <button
                                 key={index}
-                                className={`p-2 rounded-lg ${selectedDate === day ? 'bg-pink-500 text-white' : 'bg-white text-gray-600'
+                                className={`p-2 rounded-lg ${selectedDate === day ? 'bg-primary text-white' : 'bg-white text-gray-600'
                                     }`}
                                 onClick={() => handleDateSelect(day)}
                             >
@@ -67,7 +67,7 @@ const SlotPicker: React.FC<SlotPickerProps> = ({ onSlotSelect }) => {
                                         {availableSlots.map((slot, index) => (
                                             <button
                                                 key={index}
-                                                className={`p-2 rounded-lg ${selectedSlot === slot ? 'bg-pink-500 text-white' : 'bg-white text-gray-600'
+                                                className={`p-2 rounded-lg ${selectedSlot === slot ? 'bg-primary text-white' : 'bg-white text-gray-600'
                                                     }`}
                                                 onClick={() => handleSlotSelect(slot)}
                                             >

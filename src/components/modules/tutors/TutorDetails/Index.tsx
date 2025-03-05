@@ -69,7 +69,7 @@ const TutorDetailsPage = ({ tutor }: { tutor: TutorDetails }) => {
 
                     {/* Call to Action */}
                     <div className="mt-8">
-                        <button className="bg-pink-500 text-white py-2 px-6 rounded-lg w-full">Request Tutoring</button>
+                        <button className="bg-primary text-white py-2 px-6 rounded-lg w-full">Request Tutoring</button>
                     </div>
                 </div>
 
