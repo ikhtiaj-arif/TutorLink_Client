@@ -8,7 +8,7 @@ import Link from 'next/link';
 
 const HeroSection = () => {
     return (
-        <section className="relative bg-gradient-to-b from-white to-orange-200 py-24 rounded-3xl">
+        <section className="relative bg-gradient-to-b from-orange-50 to-orange-100 py-24 rounded-3xl">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center">
                     {/* Header */}
@@ -22,12 +22,12 @@ const HeroSection = () => {
 
                 {/* Search Bar */}
                 <div className="mt-10 h-10 flex justify-center">
-                    <div className="w-full max-w-4xl flex items-center space-x-4">
+                    <div className="w-3/4  relative max-w-4xl flex items-center space-x-4">
                         <Input
                             placeholder="Try 'Math', 'English', or 'Public speaking'"
-                            className="w-3/4 h-12 rounded-full py-4 px-4  border-2 border-accent focus:ring-2 focus:outline-secondary"
+                            className="w-full h-12 rounded-full py-4 px-4  border-2 border-accent focus:ring-2 focus:outline-secondary"
                         />
-                        <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
+                        <motion.div className='absolute right-3' whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
 
                             <Button variant="default" className="px-6 py-3 text-lg rounded-full">
                                 Search

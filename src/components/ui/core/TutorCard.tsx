@@ -1,10 +1,10 @@
-// components/TutorCard.tsx
 'use client';
 
 import { ITutor } from '@/types';
 import { Star } from 'lucide-react';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-
+import img from "../../../app/assets/bg_img.png";
 
 interface TutorCardProps {
     tutor: ITutor;
@@ -19,24 +19,45 @@ const TutorCard: React.FC<TutorCardProps> = ({ tutor }) => {
     };
 
     return (
-        <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-            <img src={tutor.imgUrl} alt={tutor.name} className="w-full h-56 object-cover" />
-            <div className="p-6">
+        <div onClick={handleProfileRedirect} className="bg-background overflow-hidden cursor-pointer w-full max-w-sm">
+            {/* Profile Image */}
+            <div className="relative">
+                <Image
+                    src={img} // Replace with the path to your uploaded image
+                    alt={tutor.name}
+
+                    className="w-full h-[20rem] object-cover rounded-2xl"
+                />
+                <div className='absolute bottom-2 left-6'>
+
+                    <h3 className="text-xl font-semibold text-white">{tutor.name}</h3>
+                    <h3 className="text-lg  text-white">{tutor.location}   {"("}<span className="text-gray-200 mt-1">{tutor.subject}</span>{")"}</h3>
+                </div>
+            </div>
+
+            {/* Tutor Info */}
+            <div className="px-6 py-1">
                 <div className="flex items-center justify-between">
-                    <h3 className="text-xl font-semibold text-gray-800">{tutor.name}</h3>
+
                     <div className="flex items-center">
                         <Star className="text-yellow-400" />
-                        <span className="ml-1 text-gray-600">{tutor.rating}</span>
+                        <span className="ml-1 text-gray-600">{tutor.reviews}</span>
                     </div>
+                    <div className="bg-accent text-black text-sm px-2 py-1 rounded-xl">Ambassador</div>
                 </div>
-                <p className="text-gray-600">{tutor.subject} - {tutor.location}</p>
-                <p className="text-gray-900 font-semibold mt-2">{tutor.price}</p>
-                <p className="text-gray-500 mt-1">{tutor.reviews} reviews</p>
-                {tutor.firstLessonFree && (
-                    <span className="inline-block mt-2 text-sm text-green-500">1st Lesson Free</span>
-                )}
+                <p className=" mt-1">5-time grammy award-winner-recommended guitar teacher with over 25,000 lessons taught</p>
+                <div className='flex justify-between'>
+
+                    <p className="text-gray-900 font-semibold mt-2">{tutor.price}</p>
+
+                    {tutor.firstLessonFree && (
+                        <span className="inline-block mt-2 text-sm text-green-500">1st Lesson Free</span>
+                    )}
+                </div>
             </div>
-            <div className="px-6 pb-6">
+
+            {/* Badge and View Profile Button */}
+            {/* <div className="px-6 pb-6">
                 <div className="flex items-center justify-between">
                     <span className="text-sm text-gray-500">{tutor.badge}</span>
                     <button
@@ -46,7 +67,7 @@ const TutorCard: React.FC<TutorCardProps> = ({ tutor }) => {
                         View Profile
                     </button>
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 };

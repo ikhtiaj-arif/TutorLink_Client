@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { ArrowBigLeft, ArrowBigRight } from 'lucide-react';
 import { useState } from 'react';
 import ReviewCard from './ReviewCard';
+import TLContainer from '@/components/ui/core/TLContainer';
 
 // Review data
 const reviews = [
@@ -55,7 +56,8 @@ export default function ReviewSection() {
 
 
     return (
-        <div className="max-w-6xl  grid grid-cols-3 gap-10 mx-auto mt-16 px-6">
+        <TLContainer className="pt-32">
+        <div className="max-w-6xl  grid grid-cols-3 gap-10 mx-auto  px-6">
             <div className="col-span-1 flex flex-col gap-4 justify-center items-center">
                 <motion.div
                     className="col-span-1 flex  flex-col items-center"
@@ -88,5 +90,6 @@ export default function ReviewSection() {
 
             <ReviewCard currentReview={currentReview} />
         </div>
+        </TLContainer>
     );
 }
