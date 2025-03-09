@@ -5,7 +5,7 @@ import StatisticCard from './StatisticsCard';
 export default function StatisticCardsContainer() {
   return (
     <TLContainer className="pt-32">
-      <div className="flex space-x-6">
+      <div className="flex space-x-6 overflow-x-auto">
         {/* First card */}
         <StatisticCard
           icon="star"

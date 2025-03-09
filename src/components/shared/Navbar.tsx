@@ -14,10 +14,22 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { Button } from '../ui/button';
+import LoginModal from "../ui/core/TLModals/login";
 
 const Navbar = () => {
     const pathname = usePathname();
     const [toggle, setToggle] = useState(false);
+    const [isModalOpen, setModalOpen] = useState<boolean>(false);
+
+    // Function to open the modal
+    const openModal = (): void => {
+        setModalOpen(true);
+    };
+
+    // Function to close the modal
+    const closeModal = (): void => {
+        setModalOpen(false);
+    };
 
     const isActive = (path: string) => pathname === path ? "text-dark" : "text-gray-600 hover:text-dark";
 
@@ -86,6 +98,9 @@ const Navbar = () => {
                         </Link>
                     ) : ( */}
                     <>
+                        <Button variant="default" className="bg-red-500 text-white" onClick={openModal}>
+                            Login
+                        </Button>
                         {/* Dashboard and Profile Links based on role */}
                         <Link href="/student-dashboard">
                             <Button variant="ghost" className='rounded-full font-semibold bg-accent hover:bg-primary hover:text-white'>
@@ -122,6 +137,7 @@ const Navbar = () => {
                     {/* )} */}
                 </div>
             </div>
+            <LoginModal isOpen={isModalOpen} onClose={closeModal} />
         </div>
     );
 };

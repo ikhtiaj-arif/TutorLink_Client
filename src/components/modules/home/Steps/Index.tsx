@@ -8,7 +8,7 @@ export default function StepsContainer() {
     return (
         <TLContainer className="pt-32">
             <h2 className="text-3xl font-bold text-left text-gray-900">Finding classes are simple</h2>
-            <div className="flex justify-between mt-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6  justify-between mt-8">
                 {/* First step */}
                 <StepCard
                     stepNumber={1}

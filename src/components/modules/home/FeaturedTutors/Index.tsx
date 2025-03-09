@@ -89,7 +89,6 @@ const FeaturedTutors = () => {
 
     return (
         <TLContainer className="pt-32">
-
             <section className=" bg-background">
                 <div className=" mx-auto px-4 sm:px-6 lg:px-8">
                     <h2 className="text-3xl font-bold text-left text-gray-900">Learn with the help of one of our expert teachers</h2>
