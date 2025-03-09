@@ -9,20 +9,32 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { AlignRight, LogOut, ShoppingCart } from 'lucide-react';
+import { AlignRight, LogOut } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { Button } from '../ui/button';
+import LoginModal from "../ui/core/TLModals/login";
 
 const Navbar = () => {
     const pathname = usePathname();
     const [toggle, setToggle] = useState(false);
+    const [isModalOpen, setModalOpen] = useState<boolean>(false);
+
+    // Function to open the modal
+    const openModal = (): void => {
+        setModalOpen(true);
+    };
+
+    // Function to close the modal
+    const closeModal = (): void => {
+        setModalOpen(false);
+    };
 
     const isActive = (path: string) => pathname === path ? "text-dark" : "text-gray-600 hover:text-dark";
 
     return (
-        <div className="padding-x w-full py-5 fixed top-0 z-20 bg-accent ">
+        <div className="padding-x w-full py-5 fixed top-0 z-20 bg-background">
             <div className="w-[93%] flex justify-between items-center max-w-7xl mx-auto">
                 <div className="w-full lg:w-auto justify-between flex items-center">
                     <Link
@@ -73,9 +85,9 @@ const Navbar = () => {
                 </div>
 
                 <div className="hidden md:flex items-center gap-2">
-                    <Link href="/cart">
+                    {/* <Link href="/cart">
                         <ShoppingCart />
-                    </Link>
+                    </Link> */}
 
                     {/* Conditional rendering based on user session */}
                     {/* {!user ? (
@@ -86,9 +98,12 @@ const Navbar = () => {
                         </Link>
                     ) : ( */}
                     <>
+                        <Button variant="default" className="bg-red-500 text-white" onClick={openModal}>
+                            Login
+                        </Button>
                         {/* Dashboard and Profile Links based on role */}
                         <Link href="/student-dashboard">
-                            <Button variant="outline" className='rounded-full'>
+                            <Button variant="ghost" className='rounded-full font-semibold bg-accent hover:bg-primary hover:text-white'>
                                 Student Dashboard
                             </Button>
                         </Link>
@@ -122,6 +137,7 @@ const Navbar = () => {
                     {/* )} */}
                 </div>
             </div>
+            <LoginModal isOpen={isModalOpen} onClose={closeModal} />
         </div>
     );
 };

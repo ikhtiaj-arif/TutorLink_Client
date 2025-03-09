@@ -2,9 +2,12 @@
 'use client';
 
 import { Button } from "@/components/ui/button";
+import TLContainer from "@/components/ui/core/TLContainer";
 import TutorCard from "@/components/ui/core/TutorCard";
 import { ITutor } from "@/types";
+import { ArrowBigRightIcon } from "lucide-react";
 import Link from "next/link";
+
 
 
 
@@ -85,22 +88,24 @@ const FeaturedTutors = () => {
     ];
 
     return (
-        <section className="py-16 bg-gray-50">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 className="text-3xl font-bold text-center text-gray-900">Featured Tutors</h2>
-                <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {tutors.map((tutor) => (
-                        <TutorCard key={tutor.id} tutor={tutor} />
-                    ))}
+        <TLContainer className="pt-32">
+            <section className=" bg-background">
+                <div className=" mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 className="text-3xl font-bold text-left text-gray-900">Learn with the help of one of our expert teachers</h2>
+                    <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
+                        {tutors.map((tutor) => (
+                            <TutorCard key={tutor.id} tutor={tutor} />
+                        ))}
+                    </div>
                 </div>
-            </div>
-            <div className="w-full h-20 flex justify-center items-center mt-10">
+                <div className="w-full  flex justify-center items-center mt-28">
 
-            <Link href={'/tutors'}>
-            <Button>See more tutors</Button>
-            </Link>
-            </div>
-        </section>
+                    <Link href={'/tutors'}>
+                        <Button variant='default' className="text-md font-[600]  px-8 py-3 rounded-full">See more tutors <ArrowBigRightIcon /> </Button>
+                    </Link>
+                </div>
+            </section>
+        </TLContainer>
     );
 };
 

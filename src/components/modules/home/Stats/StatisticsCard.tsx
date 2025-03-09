@@ -4,7 +4,7 @@ import { Star, Tag, Clock } from 'lucide-react';
 
 export default function StatisticCard({ icon, color, number, description }) {
   return (
-    <div className={`flex items-center p-6 rounded-xl ${color} shadow-lg`}>
+    <div className={`flex items-center min-w-[300px] p-6 rounded-xl ${color} shadow-lg`}>
       <div className="flex-shrink-0">
         {/* Displaying the respective Lucide React icon */}
         {icon === 'star' && <Star size={24} className="text-yellow-500" />}

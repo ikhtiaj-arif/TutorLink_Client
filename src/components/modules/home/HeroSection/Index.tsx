@@ -1,61 +1,76 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { motion } from 'framer-motion';
-import { Info } from 'lucide-react';
-import Link from 'next/link';
 
 const HeroSection = () => {
     return (
-        <section className="relative bg-gradient-to-b from-white to-orange-200 py-24 rounded-3xl">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="text-center">
-                    {/* Header */}
-                    <h1 className="text-4xl font-bold text-gray-900 sm:text-5xl">
-                        Find the perfect tutor
-                    </h1>
-                    <p className="mt-4 text-lg text-gray-600">
-                        Search by subject, grade, or tutor name to find the best tutor for you!
-                    </p>
-                </div>
+        <section className="relative bg-gradient-to-b from-orange-50 to-orange-100 py-40 rounded-3xl">
+            <div className="max-w-7xl  mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="text-left lg:w-1/2 ">
+                    <div className='pl-6 md:pl-0'>
+                        {/* Header */}
+                        <h3 className="text-2xl font-bold text-gray-900 sm:text-5xl">
+                            Find the perfect tutor
+                        </h3>
+                        <div>
+                            <p className="mt-4 text-lg  font-semibold text-gray-600">
+                                Quality math tutoring near me at your fingertips
+                            </p>
+                        </div>
+                        <div>
+                            <p className=" text-lg   font-semibold text-gray-600">
+                                542,568 tutors available
+                            </p>
+                        </div>
+                        <div>
+                            <p className=" text-lg font-semibold text-gray-600">s
+                                Verified reviews
+                            </p>
+                        </div>
+                        <div>
+                            <p className=" text-lg font-semibold text-gray-600">
+                                Secure payment
+                            </p>
+                        </div>
+                    </div>
+                    <div className="mt-8">
 
-                {/* Search Bar */}
-                <div className="mt-10 h-10 flex justify-center">
-                    <div className="w-full max-w-4xl flex items-center space-x-4">
-                        <Input
-                            placeholder="Try 'Math', 'English', or 'Public speaking'"
-                            className="w-3/4 h-12 rounded-full py-4 px-4  border-2 border-accent focus:ring-2 focus:outline-secondary"
-                        />
-                        <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
+                        <div className="flex items-center justify-center space-x-4 bg-white p-4 rounded-md shadow-lg">
+                            {/* Icon */}
+                            <div className="flex items-center justify-center text-gray-500">
+                                <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12h7m-3-3l3 3-3 3m-4-5H3m6 4H3" />
+                                </svg>
+                            </div>
 
-                            <Button variant="default" className="px-6 py-3 text-lg rounded-full">
+                            {/* Input Fields */}
+                            <input
+                                className="focus:outline-none px-3 border-none rounded-md w-full"
+                                placeholder="Mathematics"
+                            />
+
+
+
+                            <Button variant="default" className="px-6 py-3 text-lg rounded-xl">
                                 Search
                             </Button>
-                        </motion.div>
+
+                        </div>
                     </div>
                 </div>
+
+
+
+
+
+
+
+
 
                 {/* Key Features */}
-                <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
-                    <div className="text-center">
-                        <Info className="mx-auto text-4xl text-primary" />
-                        <h3 className="mt-4 text-xl font-semibold">Find Tutors Fast</h3>
-                        <p className="mt-2 text-gray-600">Quickly search for tutors by subjects, ratings, and more.</p>
-                    </div>
-                    <div className="text-center">
-                        <Info className="mx-auto text-4xl text-primary" />
-                        <h3 className="mt-4 text-xl font-semibold">Secure Payments</h3>
-                        <p className="mt-2 text-gray-600">Pay securely for your sessions with confidence.</p>
-                    </div>
-                    <div className="text-center">
-                        <Info className="mx-auto text-4xl text-primary" />
-                        <h3 className="mt-4 text-xl font-semibold">Verified Profiles</h3>
-                        <p className="mt-2 text-gray-600">Each tutor is verified to ensure quality education.</p>
-                    </div>
-                </div>
 
-                {/* Call-to-Action Buttons */}
+
+                {/* Call-to-Action Buttons
                 <div className="mt-16 flex justify-center space-x-6">
                     <Link href="/register/student">
                         <Button variant="outline" className="rounded-full text-primary hover:bg-primary hover:text-white">
@@ -67,9 +82,9 @@ const HeroSection = () => {
                             Register as a Tutor
                         </Button>
                     </Link>
-                </div>
+                </div> */}
             </div>
-        </section>
+        </section >
     );
 };
 
