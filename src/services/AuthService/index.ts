@@ -26,6 +26,8 @@ export const registerUser = async (userData: FieldValues) => {
 };
 
 export const loginUser = async (userData: FieldValues) => {
+  console.log(process.env.NEXT_PUBLIC_BASE_API, userData);
+ 
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/auth/login`, {
       method: "POST",
@@ -59,21 +61,25 @@ export const getCurrentUser = async () => {
   }
 };
 
-export const reCaptchaTokenVerification = async (token: string) => {
-  try {
-    const res = await fetch("https://www.google.com/recaptcha/api/siteverify", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: new URLSearchParams({
-        secret: process.env.NEXT_PUBLIC_RECAPTCHA_SERVER_KEY!,
-        response: token,
-      }),
-    });
+export const logoutUser = async () => {
+  (await cookies()).delete("accessToken");
+}
 
-    return res.json();
-  } catch (err: any) {
-    return Error(err);
-  }
-};
+// export const reCaptchaTokenVerification = async (token: string) => {
+//   try {
+//     const res = await fetch("https://www.google.com/recaptcha/api/siteverify", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/x-www-form-urlencoded",
+//       },
+//       body: new URLSearchParams({
+//         secret: process.env.NEXT_PUBLIC_RECAPTCHA_SERVER_KEY!,
+//         response: token,
+//       }),
+//     });
+
+//     return res.json();
+//   } catch (err: any) {
+//     return Error(err);
+//   }
+// };

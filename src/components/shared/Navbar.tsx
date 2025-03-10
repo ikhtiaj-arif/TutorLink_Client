@@ -9,9 +9,12 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { protectedRoutes } from "@/constants";
+import { useUser } from "@/context/UserContext";
+import { logoutUser } from "@/services/AuthService";
 import { AlignRight, LogOut } from 'lucide-react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Button } from '../ui/button';
 import LoginModal from "../ui/core/TLModals/login";
@@ -20,6 +23,9 @@ const Navbar = () => {
     const pathname = usePathname();
     const [toggle, setToggle] = useState(false);
     const [isModalOpen, setModalOpen] = useState<boolean>(false);
+    const router = useRouter();
+
+    const { user, setIsLoading } = useUser()
 
     // Function to open the modal
     const openModal = (): void => {
@@ -32,6 +38,14 @@ const Navbar = () => {
     };
 
     const isActive = (path: string) => pathname === path ? "text-dark" : "text-gray-600 hover:text-dark";
+
+    const handleLogout = () => {
+        logoutUser();
+        setIsLoading(true)
+        if (protectedRoutes.some(route => pathname.match(route))) {
+            router.push("/")
+        }
+    }
 
     return (
         <div className="padding-x w-full py-5 fixed top-0 z-20 bg-background">
@@ -90,51 +104,49 @@ const Navbar = () => {
                     </Link> */}
 
                     {/* Conditional rendering based on user session */}
-                    {/* {!user ? (
-                        <Link href="/login">
-                            <Button variant="outline" className='rounded-full'>
-                                Login
-                            </Button>
-                        </Link>
-                    ) : ( */}
-                    <>
-                        <Button variant="default" className="bg-red-500 text-white" onClick={openModal}>
+                    {!user ? (
+
+                        <Button onClick={openModal} variant="outline" className='rounded-full px-3'>
                             Login
                         </Button>
-                        {/* Dashboard and Profile Links based on role */}
-                        <Link href="/student-dashboard">
-                            <Button variant="ghost" className='rounded-full font-semibold bg-accent hover:bg-primary hover:text-white'>
-                                Student Dashboard
-                            </Button>
-                        </Link>
 
-                        <Link href="/tutor-dashboard">
-                            <Button variant="outline" className='rounded-full'>
-                                Tutor Dashboard
-                            </Button>
-                        </Link>
+                    ) : (
+                        <>
 
-                        <DropdownMenu>
-                            <DropdownMenuTrigger>
-                                <Avatar>
-                                    <AvatarImage src="https://github.com/shadcn.png" />
-                                    <AvatarFallback>User</AvatarFallback>
-                                </Avatar>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent>
-                                <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                                <DropdownMenuSeparator />
-                                <DropdownMenuItem>Profile</DropdownMenuItem>
-                                <DropdownMenuItem>My Dashboard</DropdownMenuItem>
-                                <DropdownMenuSeparator />
-                                <DropdownMenuItem className='text-red-500 cursor-pointer'>
-                                    <LogOut />
-                                    <span>Log Out</span>
-                                </DropdownMenuItem>
-                            </DropdownMenuContent>
-                        </DropdownMenu>
-                    </>
-                    {/* )} */}
+                            {/* Dashboard and Profile Links based on role */}
+                            <Link href="/student-dashboard">
+                                <Button variant="ghost" className='rounded-full font-semibold bg-accent hover:bg-primary hover:text-white'>
+                                    Student Dashboard
+                                </Button>
+                            </Link>
+
+                            <Link href="/tutor-dashboard">
+                                <Button variant="outline" className='rounded-full'>
+                                    Tutor Dashboard
+                                </Button>
+                            </Link>
+
+                            <DropdownMenu>
+                                <DropdownMenuTrigger>
+                                    <Avatar>
+                                        <AvatarImage src="https://github.com/shadcn.png" />
+                                        <AvatarFallback>User</AvatarFallback>
+                                    </Avatar>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent>
+                                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                                    <DropdownMenuSeparator />
+                                    <DropdownMenuItem>Profile</DropdownMenuItem>
+                                    <DropdownMenuItem>My Dashboard</DropdownMenuItem>
+                                    <DropdownMenuSeparator />
+                                    <DropdownMenuItem className='text-red-500 cursor-pointer'>
+                                        <LogOut />
+                                        <span onClick={handleLogout}>Log Out</span>
+                                    </DropdownMenuItem>
+                                </DropdownMenuContent>
+                            </DropdownMenu>
+                        </>
+                    )}
                 </div>
             </div>
             <LoginModal isOpen={isModalOpen} onClose={closeModal} />

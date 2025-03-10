@@ -1,7 +1,9 @@
 'use client';
 
+import { useUser } from '@/context/UserContext';
 import { loginUser } from '@/services/AuthService';
 import { Apple, Twitter } from 'lucide-react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -16,7 +18,9 @@ interface LoginModalProps {
 }
 
 const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
+
     const [isSignup, setIsSignup] = useState<boolean>(false); // State to toggle between Login and Sign Up
+    const { setIsLoading } = useUser();
 
     const handleSignupClick = () => {
         setIsSignup(true); // Switch to Sign up form
@@ -30,9 +34,9 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
 
     // const [reCaptchaStatus, setReCaptchaStatus] = useState(false)
 
-    // const searchParams = useSearchParams()
-    // const redirect = searchParams.get("redirectPath")
-    // const router = useRouter()
+    const searchParams = useSearchParams()
+    const redirect = searchParams.get("redirectPath")
+    const router = useRouter()
 
 
 
@@ -61,7 +65,14 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
         try {
             const res = await loginUser(data)
             if (res.success) {
+                setIsLoading(true)
                 toast.success(res?.message)
+                onClose()
+                if (redirect) {
+                    router.push(redirect)
+                } else {
+                    router.push("/")
+                }
 
             } else {
                 toast.error(res?.message)
@@ -70,6 +81,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
             console.log(error);
         }
     };
+
     return (
         <Dialog open={isOpen} onOpenChange={onClose}>
             <DialogTrigger asChild>
@@ -178,8 +190,8 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
                                         </FormItem>
                                     )}
                                 />
-                                <Button type="submit" className="w-full bg-primary text-white py-3 rounded-md">
-                                    Login
+                                <Button type="submit" disabled={isSubmitting} className="w-full bg-primary text-white py-3 rounded-md">
+                                    {isSubmitting ? "Logging in..." : "Login"}
                                 </Button>
 
                                 <div className="flex justify-center items-center space-x-4">
