@@ -107,7 +107,7 @@ const Navbar = () => {
                     {!user ? (
 
                         <Button onClick={openModal} variant="outline" className='rounded-full px-3'>
-                            Login
+                            Log in
                         </Button>
 
                     ) : (
@@ -149,7 +149,9 @@ const Navbar = () => {
                     )}
                 </div>
             </div>
-            <LoginModal isOpen={isModalOpen} onClose={closeModal} />
+            {
+                isModalOpen && <LoginModal isOpen={isModalOpen} onClose={closeModal} />
+            }
         </div>
     );
 };
