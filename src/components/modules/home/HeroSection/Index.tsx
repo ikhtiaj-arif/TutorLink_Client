@@ -39,7 +39,7 @@ const HeroSection = () => {
                             {/* Icon */}
                             <div className="flex items-center justify-center text-gray-500">
                                 <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12h7m-3-3l3 3-3 3m-4-5H3m6 4H3" />
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12h7m-3-3l3 3-3 3m-4-5H3m6 4H3" />
                                 </svg>
                             </div>
 
