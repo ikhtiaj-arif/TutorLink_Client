@@ -1,7 +1,7 @@
 'use client';
 
 import { useUser } from '@/context/UserContext';
-import { loginUser } from '@/services/AuthService';
+import { loginUser, registerUser } from '@/services/AuthService';
 import { Apple, Twitter } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
@@ -59,26 +59,49 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
 
 
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-        console.log(data);
+        if (isSignup) {
+
+            try {
 
 
-        try {
-            const res = await loginUser(data)
-            if (res.success) {
-                setIsLoading(true)
-                toast.success(res?.message)
-                onClose()
-                if (redirect) {
-                    router.push(redirect)
+                const res = await registerUser(data)
+                if (res.success) {
+                    setIsLoading(true)
+                    toast.success(res?.message)
+                    onClose()
+                    if (redirect) {
+                        router.push(redirect)
+                    } else {
+                        router.push("/")
+                    }
+
                 } else {
-                    router.push("/")
+                    toast.error(res?.message)
                 }
-
-            } else {
-                toast.error(res?.message)
+            } catch (error: any) {
+                console.log(error);
             }
-        } catch (error: any) {
-            console.log(error);
+        } else {
+
+
+            try {
+                const res = await loginUser(data)
+                if (res.success) {
+                    setIsLoading(true)
+                    toast.success(res?.message)
+                    onClose()
+                    if (redirect) {
+                        router.push(redirect)
+                    } else {
+                        router.push("/")
+                    }
+
+                } else {
+                    toast.error(res?.message)
+                }
+            } catch (error: any) {
+                console.log(error);
+            }
         }
     };
 
@@ -194,7 +217,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
                                     {isSubmitting ? "Logging in..." : "Login"}
                                 </Button>
 
-                                <div className="flex justify-center items-center space-x-4">
+                                {/* <div className="flex justify-center items-center space-x-4">
                                     <span className="text-gray-500">or</span>
                                 </div>
 
@@ -212,7 +235,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
                                 >
                                     <Apple className="text-black h-6 w-6" />
                                     <span>Log in with Apple</span>
-                                </Button>
+                                </Button> */}
 
                                 {/* Switch to Sign Up Link */}
                                 <div className="mt-4 text-center">
