@@ -12,6 +12,7 @@ import {
 import { protectedRoutes } from "@/constants";
 import { useUser } from "@/context/UserContext";
 import { logoutUser } from "@/services/AuthService";
+import { UserRole } from "@/types";
 import { AlignRight, LogOut } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
@@ -27,6 +28,7 @@ const Navbar = () => {
 
     const { user, setIsLoading } = useUser()
 
+    console.log(user);
     // Function to open the modal
     const openModal = (): void => {
         setModalOpen(true);
@@ -44,6 +46,25 @@ const Navbar = () => {
         setIsLoading(true)
         if (protectedRoutes.some(route => pathname.match(route))) {
             router.push("/")
+        }
+    }
+
+    const role = user?.role as UserRole;
+    const handleDashboardOpen = () => {
+        if (role === "student") {
+            router.push("/student/dashboard")
+        }
+        if (role === "tutor") {
+            router.push("/student/tutor")
+        }
+    }
+
+    const handleProfileOpen = () => {
+        if (role === "student") {
+            router.push("/student/profile")
+        }
+        if (role === "tutor") {
+            router.push("/tutor/profile")
         }
     }
 
@@ -136,8 +157,10 @@ const Navbar = () => {
                                 <DropdownMenuContent>
                                     <DropdownMenuLabel>My Account</DropdownMenuLabel>
                                     <DropdownMenuSeparator />
-                                    <DropdownMenuItem>Profile</DropdownMenuItem>
-                                    <DropdownMenuItem>My Dashboard</DropdownMenuItem>
+                                    <DropdownMenuItem className="cursor-pointer" onCanPlay={handleProfileOpen}>Profile</DropdownMenuItem>
+                                    <DropdownMenuItem className="cursor-pointer"
+                                        onClick={handleDashboardOpen}
+                                    >My Dashboard</DropdownMenuItem>
                                     <DropdownMenuSeparator />
                                     <DropdownMenuItem className='text-red-500 cursor-pointer'>
                                         <LogOut />

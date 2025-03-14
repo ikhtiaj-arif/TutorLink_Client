@@ -2,7 +2,6 @@
 
 import { useUser } from '@/context/UserContext';
 import { loginUser, registerUser } from '@/services/AuthService';
-import { Apple, Twitter } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
