@@ -55,7 +55,7 @@ const Navbar = () => {
             router.push("/student/dashboard")
         }
         if (role === "tutor") {
-            router.push("/student/tutor")
+            router.push("/tutor/dashboard")
         }
     }
 
@@ -93,7 +93,7 @@ const Navbar = () => {
                         {toggle && (
                             <ul
                                 tabIndex={0}
-                                className="absolute mt-3 right-0 z-10 p-4 shadow-md bg-tertiary rounded-md w-52"
+                                className="absolute mt-3 right-0 z-10 p-4 shadow-md bg-white rounded-md w-52"
                             >
                                 <li className="hover:text-gray-600 p-2">
                                     <Link href="/" className={isActive('/')}>Home</Link>
@@ -135,17 +135,17 @@ const Navbar = () => {
                         <>
 
                             {/* Dashboard and Profile Links based on role */}
-                            <Link href="/student-dashboard">
+                            <Link href={`/${user?.role}-dashboard`}>
                                 <Button variant="ghost" className='rounded-full font-semibold bg-accent hover:bg-primary hover:text-white'>
-                                    Student Dashboard
+                                    Dashboard
                                 </Button>
                             </Link>
 
-                            <Link href="/tutor-dashboard">
+                            {role !== "tutor" && <Link href="/tutor-request">
                                 <Button variant="outline" className='rounded-full'>
-                                    Tutor Dashboard
+                                    Become Tutor
                                 </Button>
-                            </Link>
+                            </Link>}
 
                             <DropdownMenu>
                                 <DropdownMenuTrigger>

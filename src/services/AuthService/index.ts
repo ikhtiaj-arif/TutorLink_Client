@@ -25,6 +25,28 @@ export const registerUser = async (userData: FieldValues) => {
     return Error(error);
   }
 };
+export const registerTutor = async (userData: FormData) => {
+  console.log(userData);
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/tutor/register`,
+      {
+        method: "POST",
+        body: userData,
+      }
+    );
+    const result = await res.json();
+
+    if (result.success) {
+      (await cookies()).set("accessToken", result.data.accessToken);
+    }
+
+    return result;
+  } catch (error: any) {
+    console.log(error);
+    return Error(error);
+  }
+};
 
 export const loginUser = async (userData: FieldValues) => {
   console.log(process.env.NEXT_PUBLIC_BASE_API, userData);

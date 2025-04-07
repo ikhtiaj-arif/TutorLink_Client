@@ -30,7 +30,7 @@ const TLImageUploader = ({ setImageFiles, setImagePreview }: TImageUploadProps) 
     return (
         <div>
             <Input onChange={handleImageChange} type='file' multiple accept='image/*' className='hidden' id="image-uploader" />
-            <label className='w-32 size-32  flex items-center justify-center bg-gray-500 border border-primary shadow-md hover:bg-gray-300 cursor-pointer' htmlFor='image-uploader'>Upload Logo</label>
+            <label className='w-32 size-24 rounded-md  flex items-center justify-center bg-gray-400 border border-primary shadow-md hover:bg-gray-300 cursor-pointer' htmlFor='image-uploader'>Upload Photo</label>
 
         </div>
     );

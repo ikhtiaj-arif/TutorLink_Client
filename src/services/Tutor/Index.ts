@@ -46,7 +46,9 @@ export const getTutorOwnInfo = async () => {
       {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${(await cookies()).get("accessToken")!.value}`,
+          Authorization: `Bearer ${
+            (await cookies()).get("accessToken")!.value
+          }`,
         },
         next: {
           tags: ["TUTOR"],
@@ -60,17 +62,23 @@ export const getTutorOwnInfo = async () => {
   }
 };
 
-// add product
-export const addTutor = async (productData: FormData): Promise<any> => {
+// add Tutor
+export const addTutor = async (tutorData: FormData): Promise<any> => {
+ 
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/product`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/tutor`, {
       method: "POST",
-      body: productData,
+      body: tutorData,
       headers: {
-        Authorization: (await cookies()).get("accessToken")!.value,
+        Authorization:` Bearer ${(await cookies()).get("accessToken")!.value}`,
       },
     });
-    revalidateTag("PRODUCT");
+    if (!res.ok) {
+      // If not, throw an error with the response status
+      const errorData = await res.json();
+      throw new Error(errorData?.message || "Failed to add tutor");
+    }
+    revalidateTag("TUTOR");
     return res.json();
   } catch (error: any) {
     return Error(error);
