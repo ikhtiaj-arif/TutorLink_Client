@@ -20,22 +20,20 @@ interface LoginModalProps {
 }
 
 const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
-
     const [formMode, setFormMode] = useState<'login' | 'signup' | 'becomeTutor'>('login'); // State to toggle between Login, Sign Up, and Become Tutor
     const { setIsLoading } = useUser();
-
-    const handleSignupClick = () => setFormMode('signup');
-    const handleBecomeTutorClick = () => setFormMode('becomeTutor');
-    const handleLoginClick = () => setFormMode('login');
     const [imageFiles, setImageFiles] = useState<File[] | []>([]);
     const [imagePreview, setImagePreview] = useState<string[] | []>([]);
 
     const form = useForm();
     const { formState: { isSubmitting } } = form;
-
     const searchParams = useSearchParams();
     const redirect = searchParams.get("redirectPath");
     const router = useRouter();
+
+    const handleSignupClick = () => setFormMode('signup');
+    const handleBecomeTutorClick = () => setFormMode('becomeTutor');
+    const handleLoginClick = () => setFormMode('login');
 
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         if (formMode === 'signup') {
@@ -45,11 +43,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
                     setIsLoading(true);
                     toast.success(res?.message);
                     onClose();
-                    if (redirect) {
-                        router.push(redirect);
-                    } else {
-                        router.push("/");
-                    }
+                    router.push(redirect || "/");
                 } else {
                     toast.error(res?.message);
                 }
@@ -59,9 +53,6 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
         } else if (formMode === 'becomeTutor') {
             try {
                 const formData = new FormData();
-
-                // Add any other tutor-specific fields as necessary
-
                 const dataObject = {
                     email: data.email,
                     password: data.password,
@@ -72,25 +63,18 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
                     about: data.about,
                     aboutLesson: data.aboutLesson,
                     intro: data.intro,
-
                 };
-
                 formData.append("data", JSON.stringify(dataObject)); // Add the data object
 
                 // Add image files
                 imageFiles.forEach((file) => formData.append("images", file));
 
-
                 const response = await registerTutor(formData);  // Backend call to add the tutor
                 if (response.success) {
                     setIsLoading(true);
                     toast.success(response?.message);
-                    // onClose();
-                    // if (redirect) {
-                    //     router.push(redirect);
-                    // } else {
-                    //     router.push("/");
-                    // }
+                    onClose();
+                    router.push(redirect || "/");
                 } else {
                     toast.error(response?.message);
                 }
@@ -104,11 +88,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
                     setIsLoading(true);
                     toast.success(res?.message);
                     onClose();
-                    if (redirect) {
-                        router.push(redirect);
-                    } else {
-                        router.push("/");
-                    }
+                    router.push(redirect || "/");
                 } else {
                     toast.error(res?.message);
                 }
@@ -196,15 +176,12 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
                                                     <FormMessage />
                                                 </FormItem>
                                             )} />
-
-
                                         </div>
 
                                         {/* Text Areas for Additional Tutor Information */}
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                                             <FormField control={form.control} name="about" render={({ field }) => (
                                                 <FormItem>
-
                                                     <FormControl>
                                                         <Textarea {...field} className="w-full" placeholder="About you" />
                                                     </FormControl>
@@ -214,7 +191,6 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
 
                                             <FormField control={form.control} name="intro" render={({ field }) => (
                                                 <FormItem>
-
                                                     <FormControl>
                                                         <Textarea {...field} className="w-full" placeholder="Introduction to your tutoring" />
                                                     </FormControl>
@@ -224,7 +200,6 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
 
                                             <FormField control={form.control} name="aboutLesson" render={({ field }) => (
                                                 <FormItem>
-
                                                     <FormControl>
                                                         <Textarea {...field} className="w-full" placeholder="About your lessons" />
                                                     </FormControl>
@@ -232,9 +207,8 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
                                                 </FormItem>
                                             )} />
 
-
                                             {/* Image Upload Field */}
-                                            <div className='mt-0'>
+                                            <div className="mt-0">
                                                 {imagePreview?.length > 0 ? (
                                                     <ImagePreviewer setImageFiles={setImageFiles} imagePreview={imagePreview} setImagePreview={setImagePreview} />
                                                 ) : (
@@ -245,7 +219,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
                                     </>
                                 )}
 
-                                <Button type="submit" className="w-full bg-primary text-white py-3 rounded-md mt-6">
+                                <Button type="submit" className="w-full bg-primary text-white py-3 rounded-md mt-6" disabled={isSubmitting}>
                                     {formMode === 'signup' ? 'Sign up' : formMode === 'becomeTutor' ? 'Become a Tutor' : 'Log in'}
                                 </Button>
                             </>
@@ -292,6 +266,15 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
                                         Become a Tutor
                                     </a>
                                 </div>
+                            )}
+                            {formMode !== 'becomeTutor' && formMode === 'signup' && (
+                                <>
+                                    <div className="text-sm text-gray-500 mt-4">
+                                        Already have account?{' '}
+                                        <a href="#" className="text-primary font-semibold" onClick={handleLoginClick}>
+                                            Login
+                                        </a>
+                                    </div></>
                             )}
                         </div>
                     </form>

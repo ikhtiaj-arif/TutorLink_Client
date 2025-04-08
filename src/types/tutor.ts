@@ -1,12 +1,15 @@
+import { IUser } from "./user";
+
 export interface ITutor {
   id: string;
-  name: string;
+  user: IUser;
   location: string;
   subject: string;
-  price: string;
+  aboutLesson: string;
+  rate: string;
   rating: number;
   reviews: number;
-  imgUrl: string;
+  imageUrls: string;
   badge?: string;
   firstLessonFree: boolean;
   availability: string;
@@ -15,6 +18,7 @@ export interface ITutor {
 
 export interface TutorDetails {
   id: string;
+  user?: IUser;
   name: string;
   location: string;
   subject: string; // Can be a comma-separated string or an array of subjects

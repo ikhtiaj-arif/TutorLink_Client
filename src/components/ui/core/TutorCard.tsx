@@ -4,7 +4,6 @@ import { ITutor } from '@/types';
 import { Star } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import img from "../../../app/assets/bg_img.png";
 
 interface TutorCardProps {
     tutor: ITutor;
@@ -19,18 +18,19 @@ const TutorCard: React.FC<TutorCardProps> = ({ tutor }) => {
     };
 
     return (
-        <div onClick={handleProfileRedirect} className="bg-background overflow-hidden cursor-pointer w-full max-w-sm">
+        <div onClick={handleProfileRedirect} className="bg-background overflow-hidden cursor-pointer w-[87%] mx-auto max-w-sm">
             {/* Profile Image */}
             <div className="relative">
                 <Image
-                    src={img} // Replace with the path to your uploaded image
-                    alt={tutor.name}
-
-                    className="w-full h-[20rem] object-cover rounded-2xl"
+                    src={tutor.imageUrls[0]} // Replace with the path to your uploaded image
+                    alt={tutor?.user.name}
+                    width={200}
+                    height={200}
+                    className="w-full h-[16rem] object-cover rounded-2xl"
                 />
                 <div className='absolute bottom-2 left-6'>
 
-                    <h3 className="text-xl font-semibold text-white">{tutor.name}</h3>
+                    <h3 className="text-xl font-semibold text-white">{tutor?.user.name}</h3>
                     <h3 className="text-lg  text-white">{tutor.location}   {"("}<span className="text-gray-200 mt-1">{tutor.subject}</span>{")"}</h3>
                 </div>
             </div>
@@ -45,10 +45,10 @@ const TutorCard: React.FC<TutorCardProps> = ({ tutor }) => {
                     </div>
                     <div className="bg-accent text-black text-sm px-2 py-1 rounded-xl">Ambassador</div>
                 </div>
-                <p className=" mt-1">5-time grammy award-winner-recommended guitar teacher with over 25,000 lessons taught</p>
+                <p className=" mt-1">{tutor.aboutLesson}</p>
                 <div className='flex justify-between'>
 
-                    <p className="text-gray-900 font-semibold mt-2">{tutor.price}</p>
+                    <p className="text-gray-900 font-semibold mt-2">{tutor.rate}</p>
 
                     {tutor.firstLessonFree && (
                         <span className="inline-block mt-2 text-sm text-green-500">1st Lesson Free</span>
